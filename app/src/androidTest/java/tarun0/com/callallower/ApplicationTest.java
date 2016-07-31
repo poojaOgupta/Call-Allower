@@ -1,4 +1,4 @@
-package tarun0.com.ctest;
+package tarun0.com.callallower;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

@@ -5,8 +5,8 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "tarun0.com.ctest"
-        minSdkVersion 15
+        applicationId "tarun0.com.callallower"
+        minSdkVersion 8
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
