@@ -50,15 +50,22 @@ public class MyPhoneStateListener extends Service {
                         Method m = c.getDeclaredMethod("getITelephony");
                         m.setAccessible(true);
                         ITelephony telephony = (ITelephony)m.invoke(manager);
-                        //telephony.endCall();
+                        Log.e("Incoming number", incomingNumber);
+                        if (MainActivity.blocked.contains(incomingNumber)) {
+                            telephony.endCall();
+                            Toast.makeText(getApplicationContext(), "Rejected: "+incomingNumber, Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, "CALL ENDED!!!");
+                        }
+                        else
+                            Toast.makeText(getApplicationContext(), "Doesn't exist in record.", Toast.LENGTH_LONG).show();
 
                         //AudioManager audioManager = (AudioManager)getBaseContext().getSystemService(Context.AUDIO_SERVICE);
                        // audioManager.setStreamMute(AudioManager.STREAM_RING, true);
                         //audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
 
-                        Toast.makeText(getApplicationContext(), "Works fine!", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), "Works fine!", Toast.LENGTH_LONG).show();
 
-                        Log.d(TAG, "CALL ENDED!!!");
+
                     } catch(Exception e){
                         Log.d("blockerError",e.getMessage());
                     }
