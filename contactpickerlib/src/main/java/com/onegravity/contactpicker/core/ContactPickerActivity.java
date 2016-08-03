@@ -198,7 +198,7 @@ public class ContactPickerActivity extends AppCompatActivity implements
                 mDefaultTitle = getTitle().toString();
             }
 
-            mThemeResId = intent.getIntExtra(EXTRA_THEME, R.style.ContactPicker_Theme_Light);
+            mThemeResId = R.style.ContactPicker_Theme_Dark;
         }
         else {
             mDefaultTitle = savedInstanceState.getString("mDefaultTitle");

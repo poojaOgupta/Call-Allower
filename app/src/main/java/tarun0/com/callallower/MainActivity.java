@@ -1,6 +1,8 @@
 package tarun0.com.callallower;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -13,6 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.onegravity.contactpicker.contact.Contact;
@@ -27,6 +31,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private final int REQUEST_CONTACT = 0;
     public static ArrayList<String> blocked;
+    Switch onOffSwitch;
+    Button b;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,21 +41,17 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         blocked = new ArrayList<>();
-        startService(new Intent(this, MyPhoneStateListener.class));
 
-        Button b = (Button) findViewById(R.id.button);
+        onOffSwitch = (Switch) findViewById(R.id.switch_on_off);
+        assert (onOffSwitch != null);
+        onOffSwitch.setChecked(isMyServiceRunning(MyPhoneStateListener.class));
+        setOnOffSwitch();
+
+
+        b = (Button) findViewById(R.id.button);
         assert (b != null);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ContactPickerActivity.class)
-                        .putExtra(ContactPickerActivity.EXTRA_CONTACT_BADGE_TYPE, ContactPictureType.ROUND.name())
-                        .putExtra(ContactPickerActivity.EXTRA_CONTACT_DESCRIPTION, ContactDescription.ADDRESS.name())
-                        .putExtra(ContactPickerActivity.EXTRA_CONTACT_DESCRIPTION_TYPE, ContactsContract.CommonDataKinds.Email.TYPE_WORK)
-                        .putExtra(ContactPickerActivity.EXTRA_CONTACT_SORT_ORDER, ContactSortOrder.AUTOMATIC.name());
-                startActivityForResult(intent, REQUEST_CONTACT);
-            }
-        });
+        callContactPickerActivity();
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,5 +109,58 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void setOnOffSwitch() {
+        onOffSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b && isMyServiceRunning(MyPhoneStateListener.class)) {
+                    //Do nothing as Switch On but service is already running
+                    Log.d("Switch", b+"");
+                }
+                else if (b && !isMyServiceRunning(MyPhoneStateListener.class)) {
+                    //Switch On but Service not running
+                    //Start Service
+                    startService(new Intent(MainActivity.this, MyPhoneStateListener.class));
+                    Log.d("Switch", b+"");
+                }
+                else if (!b && isMyServiceRunning(MyPhoneStateListener.class)) {
+                    //Switch Off but Service running
+                    //Stop Service
+                    stopService(new Intent(MainActivity.this, MyPhoneStateListener.class));
+                    Log.d("Switch", b+"");
+                }
+                else if (!b && !isMyServiceRunning(MyPhoneStateListener.class)) {
+                    //Switch Off but Service not running
+                    //Do nothing
+                    Log.d("Switch", b+"");
+                }
+            }
+        });
+    }
+
+    private void callContactPickerActivity() {
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ContactPickerActivity.class)
+                        .putExtra(ContactPickerActivity.EXTRA_CONTACT_BADGE_TYPE, ContactPictureType.ROUND.name())
+                        .putExtra(ContactPickerActivity.EXTRA_CONTACT_DESCRIPTION, ContactDescription.ADDRESS.name())
+                        .putExtra(ContactPickerActivity.EXTRA_CONTACT_DESCRIPTION_TYPE, ContactsContract.CommonDataKinds.Email.TYPE_WORK)
+                        .putExtra(ContactPickerActivity.EXTRA_CONTACT_SORT_ORDER, ContactSortOrder.AUTOMATIC.name());
+                startActivityForResult(intent, REQUEST_CONTACT);
+            }
+        });
     }
 }
