@@ -292,7 +292,7 @@ public class ContactPickerActivity extends AppCompatActivity implements
 
         outState.putInt("mThemeResId", mThemeResId);
 
-        mSelectedContactIds.clear();;
+        mSelectedContactIds.clear();
         for (Contact contact : mContacts) {
             if (contact.isChecked()) {
                 mSelectedContactIds.add( contact.getId() );

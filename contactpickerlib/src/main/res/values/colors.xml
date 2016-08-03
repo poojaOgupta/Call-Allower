@@ -16,6 +16,7 @@
   -->
 
 <resources>
+    <color name="tab_layout_background">#e71616</color>
     <!-- Light Colors -->
     <color name="text_color_primary_light">#FF212121</color>
     <color name="text_color_secondary_light">#FFBDBDBD</color>

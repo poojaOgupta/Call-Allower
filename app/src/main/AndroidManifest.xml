@@ -37,7 +37,7 @@
         <service
             android:name="tarun0.com.callallower.MyPhoneStateListener"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="false" />
 
         <receiver
             android:name="tarun0.com.callallower.MyReceiver"
