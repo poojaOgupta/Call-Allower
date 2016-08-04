@@ -2,12 +2,11 @@ package tarun0.com.callallower;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -17,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.onegravity.contactpicker.contact.Contact;
@@ -31,8 +31,11 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private final int REQUEST_CONTACT = 0;
     public static ArrayList<String> blocked;
+    public static String selectedContactNames = "";
     Switch onOffSwitch;
     Button b;
+    TextView selectedContacts;
+    Button delete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,18 +51,25 @@ public class MainActivity extends AppCompatActivity {
         setOnOffSwitch();
 
 
+        selectedContacts = (TextView) findViewById(R.id.selected_contacts);
+
+        if (selectedContactNames != null && !selectedContactNames.equals("")) {
+            selectedContacts.setText(selectedContactNames);
+        }
+
+
         b = (Button) findViewById(R.id.button);
         assert (b != null);
         callContactPickerActivity();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        delete = (Button)findViewById(R.id.remove);
+        delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                getContentResolver().delete(ListsContract.BlackListEntry.CONTENT_URI, null, null);
             }
         });
+
     }
 
     @Override
@@ -70,6 +80,10 @@ public class MainActivity extends AppCompatActivity {
             // we got a result from the contact picker
             List<Contact> contacts = (List<Contact>) data.getSerializableExtra(ContactPickerActivity.RESULT_CONTACT_DATA);
             blocked.clear();
+            showSelectedContacts(contacts);
+            ArrayList<ContentValues> cv = new ArrayList<>();
+            ContentValues cvArray[] = new ContentValues[contacts.size()];
+
 
             for (Contact contact : contacts) {
                 try {
@@ -78,6 +92,11 @@ public class MainActivity extends AppCompatActivity {
                             .replaceAll("-","")
                             .replaceAll("\\(","")
                             .replaceAll("\\)","");
+                    ContentValues value = new ContentValues();
+                    value.put(ListsContract.BlackListEntry.COLUMN_NAME, contact.getFirstName() + " " + contact.getLastName());
+                    value.put(ListsContract.BlackListEntry.COLUMN_NUMBER, s);
+                    //getContentResolver().insert()
+                    cv.add(value);
 
                     blocked.add(s);
                     Log.e("Saved Number", s);
@@ -86,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             }
+            getContentResolver().bulkInsert(ListsContract.BlackListEntry.CONTENT_URI, cv.toArray(cvArray));
         }
     }
 
@@ -111,6 +131,14 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void showSelectedContacts( List<Contact> list) {
+        for (Contact contact: list) {
+            selectedContactNames += contact.getFirstName()+"\n";
+        }
+        selectedContacts.setText("");
+        selectedContacts.setText(selectedContactNames);
+    }
+
     private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
@@ -132,13 +160,30 @@ public class MainActivity extends AppCompatActivity {
                 else if (b && !isMyServiceRunning(MyPhoneStateListener.class)) {
                     //Switch On but Service not running
                     //Start Service
+
+                    boolean stopped = true; //Considering the worst case when it doesn't start for some reason.
+                    while (stopped) {
+                        stopped = stopService(new Intent(MainActivity.this, MyPhoneStateListener.class));
+                        Log.d("Blocking",  stopped+"");
+                        if (!stopped) {
+                            Toast.makeText(MainActivity.this, "Started successfully!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
                     startService(new Intent(MainActivity.this, MyPhoneStateListener.class));
                     Log.d("Switch", b+"");
                 }
                 else if (!b && isMyServiceRunning(MyPhoneStateListener.class)) {
                     //Switch Off but Service running
                     //Stop Service
-                    stopService(new Intent(MainActivity.this, MyPhoneStateListener.class));
+                    boolean running = true; //Considering the worst case when it doesn't stop for some reason.
+                    while (running) {
+                        running = stopService(new Intent(MainActivity.this, MyPhoneStateListener.class));
+                        Log.d("Blocking",  running+"");
+                        if (!running) {
+                            Toast.makeText(MainActivity.this, "Stopped successfully!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
                     Log.d("Switch", b+"");
                 }
                 else if (!b && !isMyServiceRunning(MyPhoneStateListener.class)) {
