@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -37,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     Button b;
     TextView selectedContacts;
     Button delete;
+    Button editButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,15 +71,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        editButton = (Button) findViewById(R.id.edit_button);
+        editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, EditBlacklistActivity.class);
                 startActivity(intent);
             }
         });
-
     }
 
     @Override
