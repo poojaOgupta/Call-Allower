@@ -13,6 +13,7 @@ import android.util.Log;
 public class ListsProvider extends ContentProvider {
     public static final int BLACKLIST = 1;
     public static final int BLACKLIST_ID = 2;
+    private final String TAG = this.getClass().getSimpleName();
 
     public ListsProvider() {
     }
@@ -87,10 +88,9 @@ public class ListsProvider extends ContentProvider {
                                     null,value);
                             if (id != -1) {
                                 retCount++;
-                                Log.d("CV", value.getAsString(ListsContract.BlackListEntry.COLUMN_NUMBER));
                             }
                         } catch (SQLiteConstraintException e) {
-                            Log.e("CV", e.toString());
+                            Log.e(TAG, e.toString());
                         }
                     }
                     db.setTransactionSuccessful();
