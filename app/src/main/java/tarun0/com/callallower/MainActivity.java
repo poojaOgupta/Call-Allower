@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -70,6 +71,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, EditBlacklistActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -86,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             for (Contact contact : contacts) {
-                try {
+                if (contact.getPhone(0) != null) {
                     String s = contact.getPhone(0)
                             .replaceAll("\\s+","")
                             .replaceAll("-","")
@@ -100,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
                     blocked.add(s);
                     Log.e("Saved Number", s);
-                } catch (NullPointerException e) {
+                } else {
                     Toast.makeText(MainActivity.this, "Ignoring: "+contact.getFirstName()+"\nNo number saved.", Toast.LENGTH_LONG).show();
                 }
 

@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="tarun0.com.callallower.MainActivity"
-    tools:showIn="@layout/activity_main"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    tools:showIn="@layout/activity_main">
 
 
     <LinearLayout
@@ -24,10 +23,18 @@
             android:text="Delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_button"
+            android:text="Edit List"/>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"/>
+            android:layout_height="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#ff555555"/>
 
         <ScrollView
             android:layout_width="match_parent"
