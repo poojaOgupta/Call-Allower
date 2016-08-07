@@ -10,7 +10,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 
 //ActionBarActivity deprecated but used as it's required to initialize Loader.
@@ -47,14 +46,17 @@ public class EditBlacklistActivity extends ActionBarActivity implements LoaderMa
         /*RecyclerView.ItemDecoration itemDecoration = new
                 DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST);
         recyclerView.addItemDecoration(itemDecoration);*/
-        //recyclerView.setItemAnimator(new SlideInUpAnimator()); //TODO remove this statement and library if not changes are not impressive
 
-
+        final String test[] = {""};  //TODO Enter any number which you will be adding in the blacklist
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getContentResolver().delete(ListsContract.BlackListEntry.CONTENT_URI, null, null);
+                //getContentResolver().delete(ListsContract.BlackListEntry.CONTENT_URI, null, null);
+                getContentResolver().query(ListsContract.BlackListEntry.CONTENT_URI,
+                        null,
+                        ListsContract.BlackListEntry.COLUMN_NUMBER + "= ?",
+                        test, null);
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -63,7 +65,6 @@ public class EditBlacklistActivity extends ActionBarActivity implements LoaderMa
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
-        Log.e("LOLOL", "NOOOOOOOOO");
         return new CursorLoader(EditBlacklistActivity.this,
                 ListsContract.BlackListEntry.CONTENT_URI,
                 null,

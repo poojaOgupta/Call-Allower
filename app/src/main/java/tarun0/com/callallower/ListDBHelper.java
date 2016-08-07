@@ -30,6 +30,10 @@ public class ListDBHelper extends SQLiteOpenHelper {
     }
 
     private void createBlacklistTable (SQLiteDatabase db) {
+        /*String blacklistTableQuery =
+                "CREATE TABLE " + ListsContract.BlackListEntry.TABLE_NAME + " (" +
+                        ListsContract.BlackListEntry.COLUMN_NUMBER + " TEXT NOT NULL PRIMARY KEY, " +
+                        ListsContract.BlackListEntry.COLUMN_NAME + " TEXT );";*/
         String blacklistTableQuery =
                 "CREATE TABLE " + ListsContract.BlackListEntry.TABLE_NAME + " (" +
                         ListsContract.BlackListEntry.COLUMN_NUMBER + " TEXT NOT NULL PRIMARY KEY, " +

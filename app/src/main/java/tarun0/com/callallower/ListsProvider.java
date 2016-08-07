@@ -127,6 +127,7 @@ public class ListsProvider extends ContentProvider {
                         null,
                         sortOrder
                 );
+                Log.e(TAG, "In BlackLIST query");
                 break;
 
             case BLACKLIST_ID:
@@ -137,9 +138,10 @@ public class ListsProvider extends ContentProvider {
                         null,
                         null,
                         sortOrder);
+                Log.e(TAG, "In BlackLIST_ID query");
                 break;
 
-            default: throw new UnsupportedOperationException("Unknown URI!");
+            default: throw new UnsupportedOperationException("Unknown URI!" + uri.toString());
         }
         cursor.setNotificationUri(getContext().getContentResolver(), uri);
         return cursor;

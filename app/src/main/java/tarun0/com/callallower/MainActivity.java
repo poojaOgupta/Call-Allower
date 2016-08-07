@@ -101,6 +101,11 @@ public class MainActivity extends AppCompatActivity {
                             .replaceAll("-","")
                             .replaceAll("\\(","")
                             .replaceAll("\\)","");
+                    if (s.startsWith("+")) {
+                        s = s.substring(3);
+                    } else if (s.startsWith("0")) {
+                        s = s.substring(1);
+                    }
                     ContentValues value = new ContentValues();
                     value.put(ListsContract.BlackListEntry.COLUMN_NAME, contact.getFirstName() + " " + contact.getLastName());
                     value.put(ListsContract.BlackListEntry.COLUMN_NUMBER, s);
