@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "959134098198",
+    "project_id": "callallower"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:959134098198:android:db0581d0e6753567",
+        "android_client_info": {
+          "package_name": "tarun0.com.callallower"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBm3Ef2RxdhHdbCTPLs-sMTT5YNaW--YBM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-82775340-1"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
