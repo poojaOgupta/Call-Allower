@@ -1,9 +1,7 @@
 package tarun0.com.callallower;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -29,6 +27,8 @@ import com.onegravity.contactpicker.picture.ContactPictureType;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import tarun0.com.callallower.utils.Util;
 
 public class MainActivity extends AppCompatActivity {
     private final int REQUEST_CONTACT = 0;
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         onOffSwitch = (Switch) findViewById(R.id.switch_on_off);
         assert (onOffSwitch != null);
-        onOffSwitch.setChecked(isMyServiceRunning(MyPhoneStateListener.class));
+        onOffSwitch.setChecked(Util.isMyServiceRunning(MyPhoneStateListener.class, MainActivity.this));
         setOnOffSwitch();
 
 
@@ -107,16 +107,9 @@ public class MainActivity extends AppCompatActivity {
 
             for (Contact contact : contacts) {
                 if (contact.getPhone(0) != null) {
-                    String s = contact.getPhone(0)
-                            .replaceAll("\\s+","")
-                            .replaceAll("-","")
-                            .replaceAll("\\(","")
-                            .replaceAll("\\)","");
-                    if (s.startsWith("+")) {
-                        s = s.substring(3);
-                    } else if (s.startsWith("0")) {
-                        s = s.substring(1);
-                    }
+
+                    String s = Util.setPhoneNumber(contact.getPhone(0));
+
                     ContentValues value = new ContentValues();
                     value.put(ListsContract.BlackListEntry.COLUMN_NAME, contact.getFirstName() + " " + contact.getLastName());
                     value.put(ListsContract.BlackListEntry.COLUMN_NUMBER, s);
@@ -128,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(MainActivity.this, "Ignoring: "+contact.getFirstName()+"\nNo number saved.", Toast.LENGTH_LONG).show();
                 }
-
             }
             getContentResolver().bulkInsert(ListsContract.BlackListEntry.CONTENT_URI, cv.toArray(cvArray));
         }
@@ -188,25 +180,16 @@ public class MainActivity extends AppCompatActivity {
         selectedContacts.setText(selectedContactNames);
     }
 
-    private boolean isMyServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     private void setOnOffSwitch() {
         onOffSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b && isMyServiceRunning(MyPhoneStateListener.class)) {
+                if (b && Util.isMyServiceRunning(MyPhoneStateListener.class, MainActivity.this)) {
                     //Do nothing as Switch On but service is already running
                     Log.d("Switch", b+"");
                 }
-                else if (b && !isMyServiceRunning(MyPhoneStateListener.class)) {
+                else if (b && !Util.isMyServiceRunning(MyPhoneStateListener.class, MainActivity.this)) {
                     //Switch On but Service not running
                     //Start Service
 
@@ -221,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
                     startService(new Intent(MainActivity.this, MyPhoneStateListener.class));
                     Log.d("Switch", b+"");
                 }
-                else if (!b && isMyServiceRunning(MyPhoneStateListener.class)) {
+                else if (!b && Util.isMyServiceRunning(MyPhoneStateListener.class, MainActivity.this)) {
                     //Switch Off but Service running
                     //Stop Service
                     boolean running = true; //Considering the worst case when it doesn't stop for some reason.
@@ -235,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
 
                     Log.d("Switch", b+"");
                 }
-                else if (!b && !isMyServiceRunning(MyPhoneStateListener.class)) {
+                else if (!b && !Util.isMyServiceRunning(MyPhoneStateListener.class, MainActivity.this)) {
                     //Switch Off but Service not running
                     //Do nothing
                     Log.d("Switch", b+"");

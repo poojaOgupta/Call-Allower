@@ -3,6 +3,7 @@ package tarun0.com.callallower;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.IBinder;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
@@ -13,8 +14,11 @@ import com.android.internal.telephony.ITelephony;
 
 import java.lang.reflect.Method;
 
+import tarun0.com.callallower.utils.Util;
+
 public class MyPhoneStateListener extends Service {
     private String TAG = "blocker";
+    private Context mContext;
     public MyPhoneStateListener() {
     }
 
@@ -27,6 +31,7 @@ public class MyPhoneStateListener extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        mContext = this;
         Log.d(TAG, "inservice");
         StateListener phoneStateListener = new StateListener();
         TelephonyManager telephonymanager = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
@@ -34,7 +39,7 @@ public class MyPhoneStateListener extends Service {
     }
 
     class StateListener extends PhoneStateListener{
-
+        Cursor cursor;
         @Override
         public void onCallStateChanged(int state, String incomingNumber) {
             super.onCallStateChanged(state, incomingNumber);
@@ -51,7 +56,20 @@ public class MyPhoneStateListener extends Service {
                         m.setAccessible(true);
                         ITelephony telephony = (ITelephony)m.invoke(manager);
                         Log.e("Incoming number", incomingNumber);
-                        if (MainActivity.blocked.contains(incomingNumber)) {
+                        String test[] = new String[1];
+                        test[0] = Util.setPhoneNumber(incomingNumber);
+                        cursor = mContext.getContentResolver().query(ListsContract.BlackListEntry.CONTENT_URI,
+                                null,
+                                ListsContract.BlackListEntry.COLUMN_NUMBER + "= ?",
+                                test, null);
+                        /*if (MainActivity.blocked.contains(incomingNumber)) {
+                            telephony.endCall();
+                            Toast.makeText(getApplicationContext(), "Rejected: "+incomingNumber, Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, "CALL ENDED!!!");
+                        }
+                        else
+                            Toast.makeText(getApplicationContext(), "Doesn't exist in record.", Toast.LENGTH_LONG).show();*/
+                        if (cursor!=null && cursor.getCount() == 0) {
                             telephony.endCall();
                             Toast.makeText(getApplicationContext(), "Rejected: "+incomingNumber, Toast.LENGTH_SHORT).show();
                             Log.d(TAG, "CALL ENDED!!!");
@@ -68,6 +86,9 @@ public class MyPhoneStateListener extends Service {
 
                     } catch(Exception e){
                         Log.d("blockerError",e.getMessage());
+                    }
+                    finally {
+                        cursor.close();
                     }
 
                     break;
