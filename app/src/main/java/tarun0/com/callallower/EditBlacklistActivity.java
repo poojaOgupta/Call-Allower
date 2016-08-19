@@ -10,7 +10,10 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
+
+import tarun0.com.callallower.helper.SwipeHelper;
 
 //ActionBarActivity deprecated but used as it's required to initialize Loader.
 //The last parameter in init() couldn't be 'null' in AppCompatActivity.
@@ -76,8 +79,13 @@ public class EditBlacklistActivity extends ActionBarActivity implements LoaderMa
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         adapter = new ListItemAdapter(EditBlacklistActivity.this, data);
-        recyclerView.setAdapter(adapter);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(EditBlacklistActivity.this));
+        recyclerView.setAdapter(adapter);
+
+        ItemTouchHelper.Callback callback = new SwipeHelper(adapter);
+        ItemTouchHelper helper = new ItemTouchHelper(callback);
+        helper.attachToRecyclerView(recyclerView);
     }
 
     @Override

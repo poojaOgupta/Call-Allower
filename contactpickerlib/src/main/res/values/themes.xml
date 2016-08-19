@@ -33,7 +33,15 @@
     </style>
 
     <!-- DARK Theme -->
-    <style name="ContactPicker_Theme_Dark" parent="@style/Theme.AppCompat">
+    <style name="ContactPicker_Theme_Dark" parent="AwesomeTheme">
+
+    </style>
+
+    <style name="AwesomeTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+
+        <item name="colorPrimaryDark">#e71616</item>
+        <item name="colorAccent">#9722f7</item>
+        <item name="actionBarTheme">@style/ActionBar</item>
         <item name="cp_textColorPrimary">@color/text_color_primary_dark</item>
         <item name="cp_textColorSecondary">@color/text_color_secondary_dark</item>
 
@@ -43,8 +51,13 @@
 
         <item name="cp_actionIconOK">@drawable/ic_check_white_36dp</item>
         <item name="cp_actionIconCancel">@drawable/ic_close_white_36dp</item>
-        <item name="cp_actionIconCheckAll">@drawable/ic_apps_white_36dp</item>
+        <item name="cp_actionIconCheckAll">@drawable/ic_select_all_white_24dp</item>
         <item name="cp_actionIconSearch">@drawable/ic_search_white_36dp</item>
+    </style>
+
+    <style name="ActionBar" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="android:background">#e71616</item>
+        <item name="titleTextColor">#ffffff</item>
     </style>
 
 </resources>

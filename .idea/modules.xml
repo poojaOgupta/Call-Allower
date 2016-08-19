@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Ctest.iml" filepath="$PROJECT_DIR$/Ctest.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ca.iml" filepath="$PROJECT_DIR$/ca.iml" />
       <module fileurl="file://$PROJECT_DIR$/contactpickerlib/contactpickerlib.iml" filepath="$PROJECT_DIR$/contactpickerlib/contactpickerlib.iml" />
     </modules>
   </component>

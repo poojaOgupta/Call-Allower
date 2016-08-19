@@ -7,10 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
-/**
- * Created by Tarun on 05/08/2016.
- */
 public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHolder> {
 
     private Cursor mCursor;
@@ -20,6 +18,10 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
         this.mCursor = cursor;
         this.mContext = mContext;
     }
+
+    /**
+     * This method is redundant
+     */
     private Context getContext() {
         return mContext;
     }
@@ -64,5 +66,10 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
             tvName = (TextView) itemView.findViewById(R.id.item_name);
             tvNumber = (TextView) itemView.findViewById(R.id.item_number);
         }
+    }
+
+    public void remove(int position) {
+        //TODO Add code to remove the item (producing error atm)
+        Toast.makeText(mContext, "Item at position " + position + " should be removed", Toast.LENGTH_SHORT).show();
     }
 }

@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#fff">
 
     <android.support.v7.widget.RecyclerView
         android:id="@android:id/list"
@@ -15,7 +16,9 @@
         android:id="@+id/fast_scroller"
         android:layout_width="25dp"
         android:layout_height="match_parent"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true"
+        app:rfs_barColor="#83000000"
+        app:rfs_handleColor="#83000000"/>
 
     <com.onegravity.contactpicker.contact.ContactSectionIndexer
         android:id="@+id/fast_scroller_section_title_indicator"
@@ -23,7 +26,7 @@
         android:layout_height="@dimen/list_item_height"
         android:layout_toLeftOf="@id/fast_scroller"
         android:layout_toStartOf="@id/fast_scroller"
-        app:rfs_backgroundColor="@android:color/white"
+        app:rfs_backgroundColor="#83000000"
         app:rfs_textColor="@android:color/black" />
 
     <TextView
