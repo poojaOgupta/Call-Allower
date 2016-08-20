@@ -15,13 +15,14 @@ import com.android.internal.telephony.ITelephony;
 import java.lang.reflect.Method;
 
 import tarun0.com.callallower.utils.Util;
+import tarun0.com.callallower.widget.Widget;
 
-public class MyPhoneStateListener extends Service {
+public class CallBlockingService extends Service {
     private String TAG = "blocker";
     private Context mContext;
     TelephonyManager telephonymanager;
     StateListener phoneStateListener;
-    public MyPhoneStateListener() {
+    public CallBlockingService() {
     }
 
 
@@ -30,12 +31,25 @@ public class MyPhoneStateListener extends Service {
         return null;
     }
 
+    /*@Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        if (intent.getAction()!=null && intent.getAction().equals(TAG_STOP_SERVICE)) {
+            Intent i = new Intent(Widget.TOGGLE_SERVICE_STATE).setPackage(this.getPackageName());
+            sendBroadcast(i);
+            stopSelf();
+            return 0;
+        } else
+        return super.onStartCommand(intent, flags, startId);
+    }
+*/
     @Override
     public void onCreate() {
         super.onCreate();
         mContext = this;
         Log.d(TAG, "inservice");
-        Toast.makeText(MyPhoneStateListener.this, "Service started", Toast.LENGTH_SHORT).show();
+        Toast.makeText(CallBlockingService.this, "Service started", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(Widget.TOGGLE_SERVICE_STATE).setPackage(this.getPackageName());
+        sendBroadcast(intent);
         phoneStateListener = new StateListener();
         telephonymanager = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
         telephonymanager.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
@@ -99,7 +113,9 @@ public class MyPhoneStateListener extends Service {
     @Override
     public void onDestroy() {
         telephonymanager.listen(phoneStateListener,  PhoneStateListener.LISTEN_NONE);
-        Toast.makeText(MyPhoneStateListener.this, "Service Stopped", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(Widget.TOGGLE_SERVICE_STATE).setPackage(this.getPackageName());
+        sendBroadcast(intent);
+        Toast.makeText(CallBlockingService.this, "Service Stopped", Toast.LENGTH_SHORT).show();
     }
 }
 

@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     Button delete;
     Button editButton;
     private AdView mAdView;
+    private boolean loggingOn = true;
+    private String TAG = this.getClass().getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
         onOffSwitch = (Switch) findViewById(R.id.switch_on_off);
         assert (onOffSwitch != null);
-        onOffSwitch.setChecked(Util.isMyServiceRunning(MyPhoneStateListener.class, MainActivity.this));
+        onOffSwitch.setChecked(Util.isMyServiceRunning(CallBlockingService.class, MainActivity.this));
         setOnOffSwitch();
 
 
@@ -117,7 +119,8 @@ public class MainActivity extends AppCompatActivity {
                     cv.add(value);
 
                     blocked.add(s);
-                    Log.e("Saved Number", s);
+                    if (loggingOn)
+                        Log.d(TAG + "Saved Number", s);
                 } else {
                     Toast.makeText(MainActivity.this, "Ignoring: "+contact.getFirstName()+"\nNo number saved.", Toast.LENGTH_LONG).show();
                 }
@@ -185,43 +188,50 @@ public class MainActivity extends AppCompatActivity {
         onOffSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b && Util.isMyServiceRunning(MyPhoneStateListener.class, MainActivity.this)) {
+                if (b && Util.isMyServiceRunning(CallBlockingService.class, MainActivity.this)) {
                     //Do nothing as Switch On but service is already running
-                    Log.d("Switch", b+"");
+                    if (loggingOn)
+                        Log.d(TAG +" Switch", b+"");
                 }
-                else if (b && !Util.isMyServiceRunning(MyPhoneStateListener.class, MainActivity.this)) {
+                else if (b && !Util.isMyServiceRunning(CallBlockingService.class, MainActivity.this)) {
                     //Switch On but Service not running
                     //Start Service
 
                     boolean stopped = true; //Considering the worst case when it doesn't start for some reason.
                     while (stopped) {
-                        stopped = stopService(new Intent(MainActivity.this, MyPhoneStateListener.class));
+                        stopped = stopService(new Intent(MainActivity.this, CallBlockingService.class));
                         Log.d("Blocking",  stopped+"");
                         if (!stopped) {
-                           // Toast.makeText(MainActivity.this, "Started successfully!", Toast.LENGTH_SHORT).show();
+                            if (loggingOn)
+                            Log.d(TAG, "Started Successfully.");
                         }
                     }
-                    startService(new Intent(MainActivity.this, MyPhoneStateListener.class));
-                    Log.d("Switch", b+"");
+                    startService(new Intent(MainActivity.this, CallBlockingService.class));
+                    if (loggingOn)
+                        Log.d(TAG + " Switch", b+"");
                 }
-                else if (!b && Util.isMyServiceRunning(MyPhoneStateListener.class, MainActivity.this)) {
+                else if (!b && Util.isMyServiceRunning(CallBlockingService.class, MainActivity.this)) {
                     //Switch Off but Service running
                     //Stop Service
                     boolean running = true; //Considering the worst case when it doesn't stop for some reason.
                     while (running) {
-                        running = stopService(new Intent(MainActivity.this, MyPhoneStateListener.class));
-                        Log.d("Blocking",  running+"");
+                        running = stopService(new Intent(MainActivity.this, CallBlockingService.class));
+                        if (loggingOn)
+                            Log.d(TAG, running+"");
+
                         if (!running) {
-                           // Toast.makeText(MainActivity.this, "Stopped successfully!", Toast.LENGTH_SHORT).show();
+                            if (loggingOn)
+                                Log.d(TAG, "Stopped Successfully.");
                         }
                     }
-
-                    Log.d("Switch", b+"");
+                    if (loggingOn)
+                        Log.d(TAG + " Switch", b+"");
                 }
-                else if (!b && !Util.isMyServiceRunning(MyPhoneStateListener.class, MainActivity.this)) {
+                else if (!b && !Util.isMyServiceRunning(CallBlockingService.class, MainActivity.this)) {
                     //Switch Off but Service not running
                     //Do nothing
-                    Log.d("Switch", b+"");
+                    if (loggingOn)
+                        Log.d(TAG + " Switch", b+"");
                 }
             }
         });
