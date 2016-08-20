@@ -19,6 +19,8 @@ import tarun0.com.callallower.utils.Util;
 public class MyPhoneStateListener extends Service {
     private String TAG = "blocker";
     private Context mContext;
+    TelephonyManager telephonymanager;
+    StateListener phoneStateListener;
     public MyPhoneStateListener() {
     }
 
@@ -33,8 +35,9 @@ public class MyPhoneStateListener extends Service {
         super.onCreate();
         mContext = this;
         Log.d(TAG, "inservice");
-        StateListener phoneStateListener = new StateListener();
-        TelephonyManager telephonymanager = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
+        Toast.makeText(MyPhoneStateListener.this, "Service started", Toast.LENGTH_SHORT).show();
+        phoneStateListener = new StateListener();
+        telephonymanager = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
         telephonymanager.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
     }
 
@@ -62,13 +65,7 @@ public class MyPhoneStateListener extends Service {
                                 null,
                                 ListsContract.BlackListEntry.COLUMN_NUMBER + "= ?",
                                 test, null);
-                        /*if (MainActivity.blocked.contains(incomingNumber)) {
-                            telephony.endCall();
-                            Toast.makeText(getApplicationContext(), "Rejected: "+incomingNumber, Toast.LENGTH_SHORT).show();
-                            Log.d(TAG, "CALL ENDED!!!");
-                        }
-                        else
-                            Toast.makeText(getApplicationContext(), "Doesn't exist in record.", Toast.LENGTH_LONG).show();*/
+
                         if (cursor!=null && cursor.getCount() == 0) {
                             telephony.endCall();
                             Toast.makeText(getApplicationContext(), "Rejected: "+incomingNumber, Toast.LENGTH_SHORT).show();
@@ -78,11 +75,8 @@ public class MyPhoneStateListener extends Service {
                             Toast.makeText(getApplicationContext(), "Doesn't exist in record.", Toast.LENGTH_LONG).show();
 
                         //AudioManager audioManager = (AudioManager)getBaseContext().getSystemService(Context.AUDIO_SERVICE);
-                       // audioManager.setStreamMute(AudioManager.STREAM_RING, true);
-                        //audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-
-                        //Toast.makeText(getApplicationContext(), "Works fine!", Toast.LENGTH_LONG).show();
-
+                        // audioManager.setStreamMute(AudioManager.STREAM_RING, true);
+                        // audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
 
                     } catch(Exception e){
                         Log.d("blockerError",e.getMessage());
@@ -96,7 +90,7 @@ public class MyPhoneStateListener extends Service {
                     Log.d(TAG, "OFFHOOK");
                     break;
                 case TelephonyManager.CALL_STATE_IDLE:
-                    Log.d(TAG, "Why are you always IDLE? :/");
+                    Log.d(TAG, "IDLE");
                     break;
             }
         }
@@ -104,7 +98,8 @@ public class MyPhoneStateListener extends Service {
 
     @Override
     public void onDestroy() {
-
+        telephonymanager.listen(phoneStateListener,  PhoneStateListener.LISTEN_NONE);
+        Toast.makeText(MyPhoneStateListener.this, "Service Stopped", Toast.LENGTH_SHORT).show();
     }
 }
 

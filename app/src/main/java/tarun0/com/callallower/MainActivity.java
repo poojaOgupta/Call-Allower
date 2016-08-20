@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
                         stopped = stopService(new Intent(MainActivity.this, MyPhoneStateListener.class));
                         Log.d("Blocking",  stopped+"");
                         if (!stopped) {
-                            Toast.makeText(MainActivity.this, "Started successfully!", Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(MainActivity.this, "Started successfully!", Toast.LENGTH_SHORT).show();
                         }
                     }
                     startService(new Intent(MainActivity.this, MyPhoneStateListener.class));
@@ -212,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
                         running = stopService(new Intent(MainActivity.this, MyPhoneStateListener.class));
                         Log.d("Blocking",  running+"");
                         if (!running) {
-                            Toast.makeText(MainActivity.this, "Stopped successfully!", Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(MainActivity.this, "Stopped successfully!", Toast.LENGTH_SHORT).show();
                         }
                     }
 
