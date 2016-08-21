@@ -26,7 +26,7 @@ public class Widget extends AppWidgetProvider {
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
 
-        if (Util.isMyServiceRunning(CallBlockingService.class, context)) {
+        if (Util.isServiceRunning(CallBlockingService.class, context)) {
             views.setTextViewText(R.id.appwidget_button, "ON");
         } else {
             views.setTextViewText(R.id.appwidget_button, "OFF");
@@ -68,7 +68,7 @@ public class Widget extends AppWidgetProvider {
             onUpdate(context, appWidgetManager, appWidgetIds);
         }
         else if (intent.getAction().equals(TAG_STOP_SERVICE)) {
-            if (Util.isMyServiceRunning(CallBlockingService.class, context)) {
+            if (Util.isServiceRunning(CallBlockingService.class, context)) {
                 Intent i = new Intent(context, CallBlockingService.class);
                 context.stopService(i);
             } else {

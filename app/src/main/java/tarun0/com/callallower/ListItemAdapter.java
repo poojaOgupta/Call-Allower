@@ -19,13 +19,6 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
         this.mContext = mContext;
     }
 
-    /**
-     * This method is redundant
-     */
-    private Context getContext() {
-        return mContext;
-    }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());

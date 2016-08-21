@@ -25,23 +25,11 @@ public class CallBlockingService extends Service {
     public CallBlockingService() {
     }
 
-
     @Override
     public IBinder onBind(Intent arg0) {
         return null;
     }
 
-    /*@Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        if (intent.getAction()!=null && intent.getAction().equals(TAG_STOP_SERVICE)) {
-            Intent i = new Intent(Widget.TOGGLE_SERVICE_STATE).setPackage(this.getPackageName());
-            sendBroadcast(i);
-            stopSelf();
-            return 0;
-        } else
-        return super.onStartCommand(intent, flags, startId);
-    }
-*/
     @Override
     public void onCreate() {
         super.onCreate();
@@ -119,9 +107,8 @@ public class CallBlockingService extends Service {
     }
 }
 
-
-
-    /*TelephonyManager manager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+    /*  Code to try silencing the ringer on incoming call by faking volume button key event
+    TelephonyManager manager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
     Class c = Class.forName(manager.getClass().getName());
     Method m = c.getDeclaredMethod("getITelephony");
     m.setAccessible(true);

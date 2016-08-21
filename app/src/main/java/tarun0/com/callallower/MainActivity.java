@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
         onOffSwitch = (Switch) findViewById(R.id.switch_on_off);
         assert (onOffSwitch != null);
-        onOffSwitch.setChecked(Util.isMyServiceRunning(CallBlockingService.class, MainActivity.this));
+        onOffSwitch.setChecked(Util.isServiceRunning(CallBlockingService.class, MainActivity.this));
         setOnOffSwitch();
 
 
@@ -93,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -162,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        onOffSwitch.setChecked(Util.isServiceRunning(CallBlockingService.class, MainActivity.this));
         if (mAdView != null) {
             mAdView.resume();
         }
@@ -188,12 +191,12 @@ public class MainActivity extends AppCompatActivity {
         onOffSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b && Util.isMyServiceRunning(CallBlockingService.class, MainActivity.this)) {
+                if (b && Util.isServiceRunning(CallBlockingService.class, MainActivity.this)) {
                     //Do nothing as Switch On but service is already running
                     if (loggingOn)
                         Log.d(TAG +" Switch", b+"");
                 }
-                else if (b && !Util.isMyServiceRunning(CallBlockingService.class, MainActivity.this)) {
+                else if (b && !Util.isServiceRunning(CallBlockingService.class, MainActivity.this)) {
                     //Switch On but Service not running
                     //Start Service
 
@@ -210,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
                     if (loggingOn)
                         Log.d(TAG + " Switch", b+"");
                 }
-                else if (!b && Util.isMyServiceRunning(CallBlockingService.class, MainActivity.this)) {
+                else if (!b && Util.isServiceRunning(CallBlockingService.class, MainActivity.this)) {
                     //Switch Off but Service running
                     //Stop Service
                     boolean running = true; //Considering the worst case when it doesn't stop for some reason.
@@ -227,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
                     if (loggingOn)
                         Log.d(TAG + " Switch", b+"");
                 }
-                else if (!b && !Util.isMyServiceRunning(CallBlockingService.class, MainActivity.this)) {
+                else if (!b && !Util.isServiceRunning(CallBlockingService.class, MainActivity.this)) {
                     //Switch Off but Service not running
                     //Do nothing
                     if (loggingOn)
@@ -251,3 +254,5 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 }
+
+
