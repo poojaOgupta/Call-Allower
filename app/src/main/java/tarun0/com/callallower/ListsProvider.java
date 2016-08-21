@@ -31,12 +31,23 @@ public class ListsProvider extends ContentProvider {
                         selection, selectionArgs);
                 break;
 
-            default: throw new UnsupportedOperationException("Unknown Uri");
+            case BLACKLIST_ID:
+                /*String where = ListsContract.BlackListEntry.COLUMN_NUMBER + " = " + uri.getLastPathSegment();
+                if (!selection.isEmpty()) {
+                    where += " AND "+selection;
+                }
+                Log.e(TAG, where);
+                rows = db.delete(ListsContract.BlackListEntry.TABLE_NAME,
+                        where, selectionArgs);*/
+                rows = db.delete(ListsContract.BlackListEntry.COLUMN_NUMBER,
+                        selection, selectionArgs);
+                break;
+
+            default: throw new UnsupportedOperationException("Unknown Uri: " + uri.toString());
         }
         if (selection== null || rows !=0) {
             getContext().getContentResolver().notifyChange(uri, null);
         }
-        db.close();
         return rows;
     }
 
@@ -158,7 +169,7 @@ public class ListsProvider extends ContentProvider {
         String content = ListsContract.CONTENT_AUTHORITY;
         UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
         matcher.addURI(content, ListsContract.PATH_BLACKLIST, BLACKLIST);
-        matcher.addURI(content, ListsContract.PATH_BLACKLIST + "#", BLACKLIST_ID);
+        matcher.addURI(content, ListsContract.PATH_BLACKLIST + "/#", BLACKLIST_ID);
         return matcher;
     }
 }

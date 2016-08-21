@@ -34,14 +34,6 @@ public class EditBlacklistActivity extends ActionBarActivity implements LoaderMa
 
         recyclerView = (RecyclerView) findViewById(R.id.list_recycler_view);
         getSupportLoaderManager().initLoader(EDIT_LIST_LOADER,null, this);
-        /*Cursor c = getContentResolver().query(
-                ListsContract.BlackListEntry.CONTENT_URI,
-                null,
-                null,
-                null,
-                null
-        );*/
-       // Log.v(TAG + " Cursor", c.getCount()+"");
 
         /*ListItemAdapter adapter = new ListItemAdapter(this, c);
         recyclerView.setAdapter(adapter);
@@ -50,16 +42,11 @@ public class EditBlacklistActivity extends ActionBarActivity implements LoaderMa
                 DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST);
         recyclerView.addItemDecoration(itemDecoration);*/
 
-        final String test[] = {""};  //TODO Enter any number which you will be adding in the blacklist
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //getContentResolver().delete(ListsContract.BlackListEntry.CONTENT_URI, null, null);
-                getContentResolver().query(ListsContract.BlackListEntry.CONTENT_URI,
-                        null,
-                        ListsContract.BlackListEntry.COLUMN_NUMBER + "= ?",
-                        test, null);
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
