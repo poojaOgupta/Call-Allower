@@ -15,6 +15,7 @@ package tarun0.com.callallower.adapter;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ * https://gist.github.com/skyfishjy/443b7448f59be978bc59
  */
 
 import android.content.Context;
