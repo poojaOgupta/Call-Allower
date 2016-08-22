@@ -23,6 +23,8 @@ import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.support.v7.widget.RecyclerView;
 
+import tarun0.com.callallower.ListsContract;
+
 /**
  * Created by skyfishjy on 10/31/14.
  */
@@ -117,7 +119,7 @@ public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHold
             if (mDataSetObserver != null) {
                 mCursor.registerDataSetObserver(mDataSetObserver);
             }
-            mRowIdColumn = newCursor.getColumnIndexOrThrow("_id");
+            mRowIdColumn = newCursor.getColumnIndexOrThrow(ListsContract.BlackListEntry.COLUMN_NUMBER);
             mDataValid = true;
             notifyDataSetChanged();
         } else {

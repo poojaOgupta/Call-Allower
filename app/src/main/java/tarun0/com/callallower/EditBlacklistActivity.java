@@ -35,6 +35,11 @@ public class EditBlacklistActivity extends ActionBarActivity implements LoaderMa
         recyclerView = (RecyclerView) findViewById(R.id.list_recycler_view);
         getSupportLoaderManager().initLoader(EDIT_LIST_LOADER,null, this);
 
+        adapter = new ListItemAdapter(EditBlacklistActivity.this, null);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(EditBlacklistActivity.this));
+        recyclerView.setAdapter(adapter);
+
         /*ListItemAdapter adapter = new ListItemAdapter(this, c);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));*/
@@ -65,11 +70,7 @@ public class EditBlacklistActivity extends ActionBarActivity implements LoaderMa
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        adapter = new ListItemAdapter(EditBlacklistActivity.this, data);
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(EditBlacklistActivity.this));
-        recyclerView.setAdapter(adapter);
-
+        adapter.swapCursor(data);
         ItemTouchHelper.Callback callback = new SwipeHelper(adapter);
         ItemTouchHelper helper = new ItemTouchHelper(callback);
         helper.attachToRecyclerView(recyclerView);

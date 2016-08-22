@@ -10,7 +10,7 @@ public class SwipeHelper extends ItemTouchHelper.SimpleCallback {
     ListItemAdapter adapter;
 
     public SwipeHelper(ListItemAdapter adapter) {
-        super(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.LEFT);
+        super(ItemTouchHelper.ACTION_STATE_IDLE, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
         this.adapter = adapter;
     }
 
