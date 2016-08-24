@@ -25,18 +25,20 @@ public class ListItemAdapter extends CursorRecyclerViewAdapter<ListItemAdapter.V
     public void onBindViewHolder(ViewHolder viewHolder, Cursor cursor) {
         TextView textViewName = viewHolder.tvName;
         TextView textViewNumber = viewHolder.tvNumber;
+        View viewDivider = viewHolder.divider;
 
         mCursor = cursor;
         mCursor.moveToFirst();
         mCursor.moveToPosition(viewHolder.getAdapterPosition());
 
-        textViewName.setText(
-                mCursor.getString(mCursor.getColumnIndex(ListsContract.BlackListEntry.COLUMN_NAME))
-        );
+        String number = mCursor.getString(mCursor.getColumnIndex(ListsContract.BlackListEntry.COLUMN_NUMBER));
+        String name = mCursor.getString(mCursor.getColumnIndex(ListsContract.BlackListEntry.COLUMN_NAME));
 
-        textViewNumber.setText(
-                mCursor.getString(mCursor.getColumnIndex(ListsContract.BlackListEntry.COLUMN_NUMBER))
-        );
+        textViewName.setText(name);
+        textViewName.setContentDescription(mContext.getResources().getString(R.string.row_item_name_content_desc_prefix)+ name);
+        textViewNumber.setText(number);
+        textViewNumber.setContentDescription(mContext.getResources().getString(R.string.row_item_number_content_desc_prefix)+ number);
+
     }
 
     @Override
@@ -55,18 +57,17 @@ public class ListItemAdapter extends CursorRecyclerViewAdapter<ListItemAdapter.V
     public static class ViewHolder extends RecyclerView.ViewHolder{
         public TextView tvName;
         public TextView tvNumber;
+        public View divider;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tvName = (TextView) itemView.findViewById(R.id.item_name);
             tvNumber = (TextView) itemView.findViewById(R.id.item_number);
+            divider = itemView.findViewById(R.id.item_divider);
         }
     }
 
     public void remove(int position) {
-        //TODO Add code to remove the item (producing an error atm)
-        //java.lang.IllegalStateException: attempt to re-open an already-closed object: SQLiteQuery: SELECT * FROM blacklist
-
         Cursor c = getCursor();
         if (c.getCount() == 1) {
             Toast.makeText(mContext, "All numbers deleted!", Toast.LENGTH_SHORT).show();

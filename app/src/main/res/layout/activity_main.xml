@@ -9,7 +9,7 @@
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="112dp"
+        android:layout_height="@dimen/appbar_height"
         android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay">
         <android.support.design.widget.CollapsingToolbarLayout
@@ -38,7 +38,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:layout_weight="0.5"/>
+                        android:layout_weight="0.5"
+                        android:contentDescription="@string/desc_switch_on_off"/>
                 </LinearLayout>
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>

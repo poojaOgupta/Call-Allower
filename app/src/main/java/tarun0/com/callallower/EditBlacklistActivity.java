@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBarActivity;
@@ -12,7 +13,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
+import android.widget.TextView;
 
+import tarun0.com.callallower.helper.DividerItemDecoration;
 import tarun0.com.callallower.helper.SwipeHelper;
 
 //ActionBarActivity deprecated but used as it's required to initialize Loader.
@@ -22,6 +25,7 @@ public class EditBlacklistActivity extends ActionBarActivity implements LoaderMa
     public static final int EDIT_LIST_LOADER = 0;
     ListItemAdapter adapter;
     RecyclerView recyclerView;
+    TextView emptyListNotice;
 
 
 
@@ -35,17 +39,14 @@ public class EditBlacklistActivity extends ActionBarActivity implements LoaderMa
         recyclerView = (RecyclerView) findViewById(R.id.list_recycler_view);
         getSupportLoaderManager().initLoader(EDIT_LIST_LOADER,null, this);
 
+        emptyListNotice = (TextView) findViewById(R.id.empty_list_notice);
+
         adapter = new ListItemAdapter(EditBlacklistActivity.this, null);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(EditBlacklistActivity.this));
+        recyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getApplicationContext(), R.drawable.row_item_divider_gradient)));
         recyclerView.setAdapter(adapter);
 
-        /*ListItemAdapter adapter = new ListItemAdapter(this, c);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));*/
-        /*RecyclerView.ItemDecoration itemDecoration = new
-                DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST);
-        recyclerView.addItemDecoration(itemDecoration);*/
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -74,6 +75,9 @@ public class EditBlacklistActivity extends ActionBarActivity implements LoaderMa
         ItemTouchHelper.Callback callback = new SwipeHelper(adapter);
         ItemTouchHelper helper = new ItemTouchHelper(callback);
         helper.attachToRecyclerView(recyclerView);
+        if (data.getCount()>0) {
+            emptyListNotice.setVisibility(View.GONE);
+        } else emptyListNotice.setVisibility(View.VISIBLE);
     }
 
     @Override
