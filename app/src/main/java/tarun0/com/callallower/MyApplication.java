@@ -11,12 +11,12 @@ import com.google.android.gms.analytics.Tracker;
  */
 public class MyApplication extends Application {
 
-    public Tracker mTtracker;
+    public Tracker mTracker;
 
     public void startTracking() {
-        if (mTtracker == null) {
+        if (mTracker == null) {
             GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
-            mTtracker = analytics.newTracker(R.xml.track_app);
+            mTracker = analytics.newTracker(R.xml.track_app);
             analytics.enableAutoActivityReports(this);
             analytics.setLocalDispatchPeriod(2);
             analytics.getLogger()
@@ -26,6 +26,6 @@ public class MyApplication extends Application {
 
     public Tracker getmTracker() {
         startTracking();
-        return mTtracker;
+        return mTracker;
     }
 }

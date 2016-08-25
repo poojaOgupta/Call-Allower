@@ -70,7 +70,7 @@ public class ListItemAdapter extends CursorRecyclerViewAdapter<ListItemAdapter.V
     public void remove(int position) {
         Cursor c = getCursor();
         if (c.getCount() == 1) {
-            Toast.makeText(mContext, "All numbers deleted!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, mContext.getResources().getString(R.string.all_numbers_deleted), Toast.LENGTH_SHORT).show();
         }
         c.moveToPosition(position);
         String number = c.getString(c.getColumnIndex(ListsContract.BlackListEntry.COLUMN_NUMBER));

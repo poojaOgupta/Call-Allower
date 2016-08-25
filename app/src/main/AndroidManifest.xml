@@ -41,15 +41,6 @@
             android:enabled="true"
             android:exported="false" />
 
-        <receiver
-            android:name=".MyReceiver"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.PHONE_STATE" />
-            </intent-filter>
-        </receiver>
-
         <provider
             android:name=".ListsProvider"
             android:authorities="tarun0.com.callallower"

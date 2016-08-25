@@ -22,6 +22,13 @@
     <!-- Service related strings -->
     <string name="service_started">CallAllower Service started.\nUnwanted calls will be rejected.</string>
     <string name="service_stopped">CallAllower Service stopped.</string>
+    <string name="rejected">Rejected: </string>
+
+    <!-- Alert Dialog related strings -->
+    <string name="dialog_title">Confirm!</string>
+    <string name="dialog_message">Remove all the contacts? </string>
+
+    <string name="all_numbers_deleted">All numbers deleted.\nTap on the button below to add contacts to the list.</string>
 
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
     <string name="appwidget_text">Call Allower On/Off Switch</string>

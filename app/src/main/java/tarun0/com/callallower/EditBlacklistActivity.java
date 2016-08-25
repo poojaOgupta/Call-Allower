@@ -86,8 +86,8 @@ public class EditBlacklistActivity extends ActionBarActivity implements LoaderMa
             public void onClick(View view) {
 
                 new AlertDialog.Builder(EditBlacklistActivity.this)
-                        .setTitle("Delete entry")
-                        .setMessage("Are you sure you want to delete this entry?")
+                        .setTitle(getResources().getString(R.string.dialog_title))
+                        .setMessage(getResources().getString(R.string.dialog_message))
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // continue with delete
@@ -140,7 +140,6 @@ public class EditBlacklistActivity extends ActionBarActivity implements LoaderMa
                         value.put(ListsContract.BlackListEntry.COLUMN_NAME, contact.getFirstName());
 
                     value.put(ListsContract.BlackListEntry.COLUMN_NUMBER, s);
-                    //getContentResolver().insert()
                     cv.add(value);
 
                     blocked.add(s);

@@ -15,9 +15,6 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.onegravity.contactpicker.contact.Contact;
-
-import java.util.List;
 
 import tarun0.com.callallower.utils.Util;
 
@@ -123,15 +120,6 @@ public class MainActivity extends AppCompatActivity {
         }
         super.onDestroy();
     }
-
-    private void showSelectedContacts( List<Contact> list) {
-        for (Contact contact: list) {
-            selectedContactNames += contact.getFirstName()+"\n";
-        }
-        selectedContacts.setText("");
-        selectedContacts.setText(selectedContactNames);
-    }
-
 
     private void setOnOffSwitch() {
         onOffSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

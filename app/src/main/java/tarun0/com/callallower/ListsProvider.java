@@ -32,13 +32,6 @@ public class ListsProvider extends ContentProvider {
                 break;
 
             case BLACKLIST_ID:
-                /*String where = ListsContract.BlackListEntry.COLUMN_NUMBER + " = " + uri.getLastPathSegment();
-                if (!selection.isEmpty()) {
-                    where += " AND "+selection;
-                }
-                Log.e(TAG, where);
-                rows = db.delete(ListsContract.BlackListEntry.TABLE_NAME,
-                        where, selectionArgs);*/
                 rows = db.delete(ListsContract.BlackListEntry.COLUMN_NUMBER,
                         selection, selectionArgs);
                 break;
@@ -168,8 +161,8 @@ public class ListsProvider extends ContentProvider {
     public static UriMatcher buildUriMatcher() {
         String content = ListsContract.CONTENT_AUTHORITY;
         UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
-        matcher.addURI(content, ListsContract.PATH_BLACKLIST, BLACKLIST);
-        matcher.addURI(content, ListsContract.PATH_BLACKLIST + "/#", BLACKLIST_ID);
+        matcher.addURI(content, ListsContract.PATH_ALLOWEDLIST, BLACKLIST);
+        matcher.addURI(content, ListsContract.PATH_ALLOWEDLIST + "/#", BLACKLIST_ID);
         return matcher;
     }
 }

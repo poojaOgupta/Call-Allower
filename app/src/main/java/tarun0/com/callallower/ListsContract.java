@@ -14,20 +14,20 @@ public class ListsContract {
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
     //Tables
-    public static final String PATH_BLACKLIST = "block";
+    public static final String PATH_ALLOWEDLIST = "allow";
 
     public static final class BlackListEntry implements BaseColumns {
         public static final Uri CONTENT_URI =
-                BASE_CONTENT_URI.buildUpon().appendPath(PATH_BLACKLIST).build();
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_ALLOWEDLIST).build();
 
         public static final String CONTENT_TYPE =
-                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_BLACKLIST;
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_ALLOWEDLIST;
 
         public static final String CONTENT_ITEM_TYPE =
-                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_BLACKLIST;
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_ALLOWEDLIST;
 
         //Table Columns
-        public static final String TABLE_NAME = "blacklist";
+        public static final String TABLE_NAME = "allowedlist";
         public static final String COLUMN_NAME = "contactName";
         public static final String COLUMN_NUMBER = "contactNumber";
 

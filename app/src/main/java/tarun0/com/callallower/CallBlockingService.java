@@ -18,7 +18,7 @@ import tarun0.com.callallower.utils.Util;
 import tarun0.com.callallower.widget.Widget;
 
 public class CallBlockingService extends Service {
-    private String TAG = "blocker";
+    private String TAG = this.getClass().getSimpleName();
     private Context mContext;
     TelephonyManager telephonymanager;
     StateListener phoneStateListener;
@@ -59,7 +59,6 @@ public class CallBlockingService extends Service {
                         Method m = c.getDeclaredMethod("getITelephony");
                         m.setAccessible(true);
                         ITelephony telephony = (ITelephony)m.invoke(manager);
-                        Log.e("Incoming number", incomingNumber);
                         String test[] = new String[1];
                         test[0] = Util.setPhoneNumber(incomingNumber);
                         cursor = mContext.getContentResolver().query(ListsContract.BlackListEntry.CONTENT_URI,
@@ -69,18 +68,21 @@ public class CallBlockingService extends Service {
 
                         if (cursor!=null && cursor.getCount() == 0) {
                             telephony.endCall();
-                            Toast.makeText(getApplicationContext(), "Rejected: "+incomingNumber, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),
+                                    getResources().getString(R.string.rejected)+incomingNumber,
+                                    Toast.LENGTH_SHORT).show();
+
                             Log.d(TAG, "CALL ENDED!!!");
                         }
                         else
                             Log.d(TAG, "Doesn't exist in record.");
 
-                        //AudioManager audioManager = (AudioManager)getBaseContext().getSystemService(Context.AUDIO_SERVICE);
+                        // AudioManager audioManager = (AudioManager)getBaseContext().getSystemService(Context.AUDIO_SERVICE);
                         // audioManager.setStreamMute(AudioManager.STREAM_RING, true);
                         // audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
 
                     } catch(Exception e){
-                        Log.d("blockerError",e.getMessage());
+                        Log.d(TAG,e.getMessage());
                     }
                     finally {
                         cursor.close();
@@ -105,31 +107,3 @@ public class CallBlockingService extends Service {
         Toast.makeText(CallBlockingService.this, getResources().getString(R.string.service_stopped), Toast.LENGTH_SHORT).show();
     }
 }
-
-    /*  Code to try silencing the ringer on incoming call by faking volume button key event
-    TelephonyManager manager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-    Class c = Class.forName(manager.getClass().getName());
-    Method m = c.getDeclaredMethod("getITelephony");
-    m.setAccessible(true);
-        ITelephony telephony = (ITelephony)m.invoke(manager);
-        //telephony.endCall();
-
-        AudioManager audioManager = (AudioManager)getBaseContext().getSystemService(Context.AUDIO_SERVICE);
-        // audioManager.setStreamMute(AudioManager.STREAM_RING, true);
-        audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-        Log.d("blocker", "CAL ENDED!!!");*/
-
-/*new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    Log.d("blocker", "Inside key emulator");
-                                    Instrumentation inst = new Instrumentation();
-                                    //This is for Volume Down, change to
-                                    //KEYCODE_VOLUME_UP for Volume Up.
-                                    inst.sendKeyDownUpSync(KeyEvent.KEYCODE_VOLUME_DOWN);
-                                }catch(Exception e){
-                                    Log.e("Emulate key", "error");
-                                }
-                            }
-                        }).start();*/

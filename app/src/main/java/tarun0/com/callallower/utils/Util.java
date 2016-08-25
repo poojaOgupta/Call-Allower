@@ -18,6 +18,7 @@ public class Util {
     }
 
     //Method to remove spaces/+/codes and return only digits of the number
+    //Valid for Indian numbers. If the saved contact number starts from +91, it'll remove the code.
     public static String setPhoneNumber(String str) {
         String number = str
                 .replaceAll("\\s+","")
