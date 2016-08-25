@@ -1,4 +1,4 @@
-package tarun0.com.callallower;
+package tarun0.com.callallower.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -9,7 +9,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import tarun0.com.callallower.adapter.CursorRecyclerViewAdapter;
+import tarun0.com.callallower.R;
+import tarun0.com.callallower.data.ListsContract;
 
 public class ListItemAdapter extends CursorRecyclerViewAdapter<ListItemAdapter.ViewHolder> {
 

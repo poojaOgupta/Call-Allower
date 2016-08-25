@@ -1,4 +1,4 @@
-package tarun0.com.callallower;
+package tarun0.com.callallower.service;
 
 import android.app.Service;
 import android.content.Context;
@@ -14,6 +14,8 @@ import com.android.internal.telephony.ITelephony;
 
 import java.lang.reflect.Method;
 
+import tarun0.com.callallower.R;
+import tarun0.com.callallower.data.ListsContract;
 import tarun0.com.callallower.utils.Util;
 import tarun0.com.callallower.widget.Widget;
 

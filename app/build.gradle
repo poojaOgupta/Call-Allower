@@ -1,9 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'udacity'
+            keyPassword 'udacity'
+            storeFile file('\\capstone_keystore.jks')
+            storePassword 'udacity'
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
-
     defaultConfig {
         applicationId "tarun0.com.callallower"
         minSdkVersion 14
@@ -32,4 +39,3 @@ dependencies {
     compile 'com.github.clans:fab:1.6.4'
 }
 apply plugin: 'com.google.gms.google-services'
-

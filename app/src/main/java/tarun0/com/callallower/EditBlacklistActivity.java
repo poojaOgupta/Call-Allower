@@ -32,6 +32,8 @@ import com.onegravity.contactpicker.picture.ContactPictureType;
 import java.util.ArrayList;
 import java.util.List;
 
+import tarun0.com.callallower.adapter.ListItemAdapter;
+import tarun0.com.callallower.data.ListsContract;
 import tarun0.com.callallower.helper.DividerItemDecoration;
 import tarun0.com.callallower.helper.SwipeHelper;
 import tarun0.com.callallower.utils.Util;

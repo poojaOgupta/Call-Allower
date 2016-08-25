@@ -3,7 +3,7 @@ package tarun0.com.callallower.helper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
-import tarun0.com.callallower.ListItemAdapter;
+import tarun0.com.callallower.adapter.ListItemAdapter;
 
 public class SwipeHelper extends ItemTouchHelper.SimpleCallback {
 

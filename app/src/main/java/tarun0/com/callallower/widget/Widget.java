@@ -8,7 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 
-import tarun0.com.callallower.CallBlockingService;
+import tarun0.com.callallower.service.CallBlockingService;
 import tarun0.com.callallower.R;
 import tarun0.com.callallower.utils.Util;
 

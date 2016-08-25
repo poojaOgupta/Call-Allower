@@ -1,4 +1,4 @@
-package tarun0.com.callallower;
+package tarun0.com.callallower.data;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;

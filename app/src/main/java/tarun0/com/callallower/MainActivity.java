@@ -18,6 +18,8 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
+import tarun0.com.callallower.data.ListsContract;
+import tarun0.com.callallower.service.CallBlockingService;
 import tarun0.com.callallower.utils.Util;
 
 public class MainActivity extends AppCompatActivity {
