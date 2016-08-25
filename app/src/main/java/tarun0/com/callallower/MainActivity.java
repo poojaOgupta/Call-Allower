@@ -1,10 +1,7 @@
 package tarun0.com.callallower;
 
-import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -15,27 +12,18 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.onegravity.contactpicker.contact.Contact;
-import com.onegravity.contactpicker.contact.ContactDescription;
-import com.onegravity.contactpicker.contact.ContactSortOrder;
-import com.onegravity.contactpicker.core.ContactPickerActivity;
-import com.onegravity.contactpicker.picture.ContactPictureType;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import tarun0.com.callallower.utils.Util;
 
 public class MainActivity extends AppCompatActivity {
-    private final int REQUEST_CONTACT = 0;
-    public static ArrayList<String> blocked;
     public static String selectedContactNames = "";
     Switch onOffSwitch;
-    Button b;
     TextView selectedContacts;
     Button delete;
     Button editButton;
@@ -57,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        blocked = new ArrayList<>();
 
         onOffSwitch = (Switch) findViewById(R.id.switch_on_off);
         assert (onOffSwitch != null);
@@ -70,11 +57,6 @@ public class MainActivity extends AppCompatActivity {
         if (selectedContactNames != null && !selectedContactNames.equals("")) {
             selectedContacts.setText(selectedContactNames);
         }
-
-
-        b = (Button) findViewById(R.id.button);
-        assert (b != null);
-        callContactPickerActivity();
 
         delete = (Button)findViewById(R.id.remove);
         delete.setOnClickListener(new View.OnClickListener() {
@@ -94,42 +76,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == REQUEST_CONTACT && resultCode == Activity.RESULT_OK &&
-                data != null && data.hasExtra(ContactPickerActivity.RESULT_CONTACT_DATA)) {
-            // we got a result from the contact picker
-            List<Contact> contacts = (List<Contact>) data.getSerializableExtra(ContactPickerActivity.RESULT_CONTACT_DATA);
-            blocked.clear();
-            showSelectedContacts(contacts);
-            ArrayList<ContentValues> cv = new ArrayList<>();
-            ContentValues cvArray[] = new ContentValues[contacts.size()];
-
-
-            for (Contact contact : contacts) {
-                if (contact.getPhone(0) != null) {
-
-                    String s = Util.setPhoneNumber(contact.getPhone(0));
-
-                    ContentValues value = new ContentValues();
-                    value.put(ListsContract.BlackListEntry.COLUMN_NAME, contact.getFirstName() + " " + contact.getLastName());
-                    value.put(ListsContract.BlackListEntry.COLUMN_NUMBER, s);
-                    //getContentResolver().insert()
-                    cv.add(value);
-
-                    blocked.add(s);
-                    if (loggingOn)
-                        Log.d(TAG + "Saved Number", s);
-                } else {
-                    Toast.makeText(MainActivity.this, "Ignoring: "+contact.getFirstName()+"\nNo number saved.", Toast.LENGTH_LONG).show();
-                }
-            }
-            getContentResolver().bulkInsert(ListsContract.BlackListEntry.CONTENT_URI, cv.toArray(cvArray));
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -240,19 +186,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void callContactPickerActivity() {
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ContactPickerActivity.class)
-                        .putExtra(ContactPickerActivity.EXTRA_CONTACT_BADGE_TYPE, ContactPictureType.ROUND.name())
-                        .putExtra(ContactPickerActivity.EXTRA_CONTACT_DESCRIPTION, ContactDescription.ADDRESS.name())
-                        .putExtra(ContactPickerActivity.EXTRA_CONTACT_DESCRIPTION_TYPE, ContactsContract.CommonDataKinds.Email.TYPE_WORK)
-                        .putExtra(ContactPickerActivity.EXTRA_CONTACT_SORT_ORDER, ContactSortOrder.AUTOMATIC.name());
-                startActivityForResult(intent, REQUEST_CONTACT);
-            }
-        });
-    }
 }
 
 
