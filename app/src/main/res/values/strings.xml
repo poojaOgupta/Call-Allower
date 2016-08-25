@@ -9,12 +9,22 @@
     <!-- Edit List related strings -->
     <string name="desc_edit_list_recycler_view">Selected contacts</string>
     <string name="empty_list_notice">No contact saved. Click the button below to add contacts to the WhiteList.</string>
+    <string name="desc_fab_menu">Add or Remove contacts from list.</string>
+    <string name="desc_fab_add_contact">Add Contacts.</string>
+    <string name="desc_fab_remove_all">Remove all contacts from list.</string>
+    <string name="fab_add_contact_label">Add Contact</string>
+    <string name="fab_remove_all_label">Remove All Contacts</string>
 
     <!-- Row item related strings -->
     <string name="row_item_name_content_desc_prefix">Row item name: </string>
     <string name="row_item_number_content_desc_prefix">Row item number: </string>
 
+    <!-- Service related strings -->
+    <string name="service_started">CallAllower Service started.\nUnwanted calls will be rejected.</string>
+    <string name="service_stopped">CallAllower Service stopped.</string>
+
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
     <string name="appwidget_text">Call Allower On/Off Switch</string>
     <string name="add_widget">Add widget</string>
+    <string name="desc_widget_button">Toggle CallAllower On/Off</string>
 </resources>

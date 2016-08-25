@@ -27,9 +27,11 @@ public class Widget extends AppWidgetProvider {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
 
         if (Util.isServiceRunning(CallBlockingService.class, context)) {
-            views.setTextViewText(R.id.appwidget_button, "ON");
+           // views.setTextViewText(R.id.appwidget_button, "ON");
+            views.setImageViewResource(R.id.appwidget_button, R.drawable.widget_off);
         } else {
-            views.setTextViewText(R.id.appwidget_button, "OFF");
+           // views.setTextViewText(R.id.appwidget_button, "OFF");
+            views.setImageViewResource(R.id.appwidget_button, R.drawable.widget_on);
         }
 
         Intent intent = new Intent(context, Widget.class);

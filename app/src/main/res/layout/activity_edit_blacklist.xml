@@ -29,12 +29,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:paddingRight="10dp"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
+        android:contentDescription="@string/desc_fab_menu"
         fab:menu_labels_ellipsize="end"
         fab:menu_labels_singleLine="true"
-        fab:menu_backgroundColor="#ccffffff"
+        fab:menu_backgroundColor="@color/fab_bg_color"
         fab:menu_labels_position="left">
 
         <com.github.clans.fab.FloatingActionButton
@@ -42,8 +40,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_edit"
+            android:contentDescription="@string/desc_fab_add_contact"
             fab:fab_size="mini"
-            fab:fab_label="Add Contacts"
+            fab:fab_label="@string/fab_add_contact_label"
             app:fab_showAnimation="@anim/show_right_to_left"/>
 
         <com.github.clans.fab.FloatingActionButton
@@ -51,8 +50,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_edit"
+            android:contentDescription="@string/desc_fab_remove_all"
             fab:fab_size="mini"
-            fab:fab_label="Delete All"
+            fab:fab_label="@string/fab_remove_all_label"
             app:fab_showAnimation="@anim/show_right_to_left"/>
 
     </com.github.clans.fab.FloatingActionMenu>

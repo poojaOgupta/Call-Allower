@@ -34,8 +34,7 @@ public class CallBlockingService extends Service {
     public void onCreate() {
         super.onCreate();
         mContext = this;
-        Log.d(TAG, "inservice");
-        Toast.makeText(CallBlockingService.this, "Service started", Toast.LENGTH_SHORT).show();
+        Toast.makeText(CallBlockingService.this, getResources().getString(R.string.service_started), Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(Widget.TOGGLE_SERVICE_STATE).setPackage(this.getPackageName());
         sendBroadcast(intent);
         phoneStateListener = new StateListener();
@@ -74,7 +73,7 @@ public class CallBlockingService extends Service {
                             Log.d(TAG, "CALL ENDED!!!");
                         }
                         else
-                            Toast.makeText(getApplicationContext(), "Doesn't exist in record.", Toast.LENGTH_LONG).show();
+                            Log.d(TAG, "Doesn't exist in record.");
 
                         //AudioManager audioManager = (AudioManager)getBaseContext().getSystemService(Context.AUDIO_SERVICE);
                         // audioManager.setStreamMute(AudioManager.STREAM_RING, true);
@@ -103,7 +102,7 @@ public class CallBlockingService extends Service {
         telephonymanager.listen(phoneStateListener,  PhoneStateListener.LISTEN_NONE);
         Intent intent = new Intent(Widget.TOGGLE_SERVICE_STATE).setPackage(this.getPackageName());
         sendBroadcast(intent);
-        Toast.makeText(CallBlockingService.this, "Service Stopped", Toast.LENGTH_SHORT).show();
+        Toast.makeText(CallBlockingService.this, getResources().getString(R.string.service_stopped), Toast.LENGTH_SHORT).show();
     }
 }
 

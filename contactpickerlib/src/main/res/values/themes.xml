@@ -55,7 +55,7 @@
         <item name="cp_actionIconSearch">@drawable/ic_search_white_36dp</item>
     </style>
 
-    <style name="ActionBar" parent="@style/Widget.AppCompat.ActionBar">
+    <style name="ActionBar" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="android:background">#e71616</item>
         <item name="titleTextColor">#ffffff</item>
     </style>
