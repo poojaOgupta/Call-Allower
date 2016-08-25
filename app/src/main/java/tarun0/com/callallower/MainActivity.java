@@ -15,25 +15,31 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import tarun0.com.callallower.utils.Util;
 
 public class MainActivity extends AppCompatActivity {
     public static String selectedContactNames = "";
-    Switch onOffSwitch;
-    TextView selectedContacts;
-    Button delete;
-    Button editButton;
+    private Switch onOffSwitch;
+    private TextView selectedContacts;
+    private Button delete;
+    private Button editButton;
     private AdView mAdView;
     private boolean loggingOn = true;
     private String TAG = this.getClass().getSimpleName();
+    Tracker mTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ((MyApplication) getApplication()).startTracking();
+        mTracker = ((MyApplication) getApplication()).getmTracker();
+        mTracker.setScreenName(TAG);
+
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
 
         mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()

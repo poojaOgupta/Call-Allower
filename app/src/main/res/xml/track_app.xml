@@ -3,5 +3,5 @@
 
     <string name = "ga_trackingId">UA-82775340-1</string>
     <string name = "ga_autoActivityTracking">true</string>
-
+    <bool name="ga_reportUncaughtExceptions">true</bool>
 </resources>

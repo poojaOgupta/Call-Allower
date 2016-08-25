@@ -13,7 +13,7 @@ public class MyApplication extends Application {
 
     public Tracker mTracker;
 
-    public void startTracking() {
+    synchronized public void startTracking() {
         if (mTracker == null) {
             GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
             mTracker = analytics.newTracker(R.xml.track_app);
