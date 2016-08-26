@@ -19,5 +19,5 @@
     <dimen name="recycler_view_margin_top">66dp</dimen>
     <dimen name="empty_list_margin_top">128dp</dimen>
 
-
+    <dimen name="recycler_view_horizontal_margin">24dp</dimen>
 </resources>
