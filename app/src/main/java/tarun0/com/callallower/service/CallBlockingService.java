@@ -79,6 +79,7 @@ public class CallBlockingService extends Service {
                         else
                             Log.d(TAG, "Doesn't exist in record.");
 
+                        //Will see if silencing the phone could be a potential option.
                         // AudioManager audioManager = (AudioManager)getBaseContext().getSystemService(Context.AUDIO_SERVICE);
                         // audioManager.setStreamMute(AudioManager.STREAM_RING, true);
                         // audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);

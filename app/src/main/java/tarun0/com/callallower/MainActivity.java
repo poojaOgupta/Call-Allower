@@ -67,7 +67,7 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
     private final int REQUEST_CONTACT = 0;
     public static ArrayList<String> blocked;
 
-    private boolean loggingOn = true;
+    private boolean loggingOn = false;
 
 
     @Override

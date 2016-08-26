@@ -3,7 +3,6 @@ package tarun0.com.callallower;
 import android.app.Application;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
-import com.google.android.gms.analytics.Logger;
 import com.google.android.gms.analytics.Tracker;
 
 /**
@@ -19,8 +18,6 @@ public class MyApplication extends Application {
             mTracker = analytics.newTracker(R.xml.track_app);
             analytics.enableAutoActivityReports(this);
             analytics.setLocalDispatchPeriod(2);
-            analytics.getLogger()
-                    .setLogLevel(Logger.LogLevel.VERBOSE);
         }
     }
 
