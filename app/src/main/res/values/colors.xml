@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#e71616</color>
+    <color name="colorPrimary">#bb020a</color>
     <color name="colorPrimaryDark">#bb020a</color>
     <color name="colorAccent">#9722f7</color>
-    <color name="card_background_color_dark">#c088ec</color>
-    <color name="card_background_color_light">#FFD4BAE8</color>
+    <color name="card_background_color_dark">#4567f1</color>
+    <color name="card_background_color_light">#42a5f5</color>
     <color name="fab_bg_color">#ccffffff</color>
+    <color name="activity_bg_color">#969696</color>
 
 </resources>

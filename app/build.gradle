@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'udacity'
             keyPassword 'udacity'
-            storeFile file('\\capstone_keystore.jks')
+            storeFile file('capstone_keystore.jks')
             storePassword 'udacity'
         }
     }
@@ -20,6 +20,7 @@ android {
     }
     buildTypes {
         release {
+            signingConfig signingConfigs.config
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -29,13 +30,13 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
+    compile project(':contactpickerlib')
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:design:23.4.0'
     compile 'com.android.support:recyclerview-v7:23.4.0'
-    compile project(':contactpickerlib')
     compile 'com.google.android.gms:play-services-analytics:9.2.1'
     compile 'com.google.android.gms:play-services-ads:9.2.1'
-    compile 'com.android.support:cardview-v7:23.2.1'
+    compile 'com.android.support:cardview-v7:23.4.0'
     compile 'com.github.clans:fab:1.6.4'
 }
 apply plugin: 'com.google.gms.google-services'

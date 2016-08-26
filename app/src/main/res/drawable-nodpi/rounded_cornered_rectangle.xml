@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <gradient
         android:endColor="@color/card_background_color_dark"
-        android:centerColor="@color/card_background_color_light"
+        android:centerColor="@color/card_background_color_dark"
         android:startColor="@color/card_background_color_dark"
         android:angle="270" />
     <corners

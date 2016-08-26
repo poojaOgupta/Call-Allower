@@ -5,6 +5,7 @@
 
     <!-- MainActivity related strings -->
     <string name="desc_switch_on_off">On/Off Switch</string>
+    <string name="desc_heading">Heading</string>
 
     <!-- Edit List related strings -->
     <string name="desc_edit_list_recycler_view">Selected contacts</string>
@@ -30,8 +31,16 @@
 
     <string name="all_numbers_deleted">All numbers deleted.\nTap on the button below to add contacts to the list.</string>
 
+    <string name="list_heading">Calls from numbers other than those listed below, will be rejected.</string>
+
+    <string name="desc_ad">Ad</string>
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
     <string name="appwidget_text">Call Allower On/Off Switch</string>
     <string name="add_widget">Add widget</string>
     <string name="desc_widget_button">Toggle CallAllower On/Off</string>
+    <string name="desc_widget_blocker_on">CallAllower service is enabled. Tap to disable.</string>
+    <string name="desc_widget_blocker_off">CallAllower service is disabled. Tap to enable.</string>
+
+    <string name="permission_not_granted_contacts">Contact permission hasn\'t been granted to this app. Grant the permission and try again!</string>
+    <string name="permission_not_granted_phone">Phone permission hasn\'t been granted to this app. Grant the permission and try again!</string>
 </resources>

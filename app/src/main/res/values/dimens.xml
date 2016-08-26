@@ -9,8 +9,13 @@
     <dimen name="row_item_name_size">12sp</dimen>
     <dimen name="row_item_view_padding">8dp</dimen>
     <dimen name="row_item_view_padding_bottom">4dp</dimen>
-    <dimen name="cardview_padding">16dp</dimen>
+    <dimen name="cardview_padding">8dp</dimen>
     <dimen name="cardview_padding_bottom">4dp</dimen>
+
+    <dimen name="heading_margin">4dp</dimen>
+    <dimen name="recycler_view_margin_top">42dp</dimen>
+    <dimen name="empty_list_margin_top">56dp</dimen>
+
 
     <!--
 Refer to App Widget Documentation for margin information

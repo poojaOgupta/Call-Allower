@@ -8,14 +8,6 @@
     tools:showIn="@layout/activity_main"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/list_heading"
-        android:layout_marginBottom="@dimen/heading_margin"
-        android:layout_marginTop="@dimen/heading_margin"
-        android:gravity="center"
-        android:textStyle="bold"/>
 
     <android.support.v7.widget.RecyclerView
         android:layout_marginTop="@dimen/recycler_view_margin_top"

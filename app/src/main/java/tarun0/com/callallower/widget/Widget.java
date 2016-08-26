@@ -6,6 +6,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.widget.RemoteViews;
 
 import tarun0.com.callallower.service.CallBlockingService;
@@ -29,9 +30,13 @@ public class Widget extends AppWidgetProvider {
         if (Util.isServiceRunning(CallBlockingService.class, context)) {
            // views.setTextViewText(R.id.appwidget_button, "ON");
             views.setImageViewResource(R.id.appwidget_button, R.drawable.widget_off);
+            if (Build.VERSION.SDK_INT >= 15)
+                views.setContentDescription(R.id.appwidget_button, context.getResources().getString(R.string.desc_widget_blocker_on));
         } else {
            // views.setTextViewText(R.id.appwidget_button, "OFF");
             views.setImageViewResource(R.id.appwidget_button, R.drawable.widget_on);
+            if (Build.VERSION.SDK_INT >= 15)
+                views.setContentDescription(R.id.appwidget_button, context.getResources().getString(R.string.desc_widget_blocker_off));
         }
 
         Intent intent = new Intent(context, Widget.class);

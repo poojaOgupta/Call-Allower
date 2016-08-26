@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:paddingLeft="@dimen/cardview_padding"
     android:paddingRight="@dimen/cardview_padding"
-    android:paddingTop="@dimen/cardview_padding_bottom">
+    android:paddingTop="@dimen/cardview_padding_bottom"
+    android:elevation="@dimen/cardview_elevation">
 
     <LinearLayout
         android:layout_width="match_parent"
