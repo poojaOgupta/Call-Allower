@@ -50,7 +50,9 @@ import tarun0.com.callallower.helper.DividerItemDecoration;
 import tarun0.com.callallower.helper.SwipeHelper;
 import tarun0.com.callallower.service.CallBlockingService;
 import tarun0.com.callallower.utils.Util;
-
+// ActionBarActivity deprecated but used as it's required to initialize Loader.
+// The last parameter in init() couldn't be 'null' in AppCompatActivity.
+// Only solution I found was to extend the deprecated activity class
 public class MainActivity extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor>{
     private Switch onOffSwitch;
     private AdView mAdView;
