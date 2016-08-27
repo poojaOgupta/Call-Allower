@@ -17,7 +17,7 @@
 
     <dimen name="heading_margin">10dp</dimen>
     <dimen name="recycler_view_margin_top">16dp</dimen>
-    <dimen name="empty_list_margin_top">56dp</dimen>
+    <dimen name="empty_list_margin_horizontal">16dp</dimen>
 
     <dimen name="recycler_view_horizontal_margin">16dp</dimen>
 

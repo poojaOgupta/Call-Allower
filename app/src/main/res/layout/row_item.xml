@@ -18,6 +18,7 @@
             android:textSize="@dimen/row_item_number_size"
             android:paddingLeft="@dimen/row_item_view_padding"
             android:paddingRight="@dimen/row_item_view_padding"
+            android:layout_gravity="start"
             android:textColor="@android:color/white"/>
 
         <TextView
@@ -26,7 +27,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/row_item_view_padding_bottom"
             android:textSize="@dimen/row_item_name_size"
-            android:layout_gravity="right"
+            android:layout_gravity="end"
             android:paddingLeft="@dimen/row_item_view_padding"
             android:paddingRight="@dimen/row_item_view_padding"
             android:textColor="@android:color/white"/>

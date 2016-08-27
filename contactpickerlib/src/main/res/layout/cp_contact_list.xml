@@ -14,11 +14,12 @@
 
     <xyz.danoz.recyclerviewfastscroller.vertical.VerticalRecyclerViewFastScroller
         android:id="@+id/fast_scroller"
-        android:layout_width="25dp"
+        android:layout_width="@dimen/recyclerviewfastscroller_width"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
-        app:rfs_barColor="#83000000"
-        app:rfs_handleColor="#83000000"/>
+        android:layout_alignParentEnd="true"
+        app:rfs_barColor="@color/text_color_primary_dark"
+        app:rfs_handleColor="@color/text_color_primary_dark"/>
 
     <com.onegravity.contactpicker.contact.ContactSectionIndexer
         android:id="@+id/fast_scroller_section_title_indicator"
@@ -26,7 +27,7 @@
         android:layout_height="@dimen/list_item_height"
         android:layout_toLeftOf="@id/fast_scroller"
         android:layout_toStartOf="@id/fast_scroller"
-        app:rfs_backgroundColor="#83000000"
+        app:rfs_backgroundColor="@color/text_color_primary_dark"
         app:rfs_textColor="@android:color/black" />
 
     <TextView

@@ -33,7 +33,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="@string/app_name"
-                        android:gravity="bottom"
+                        android:gravity="bottom|start"
                         android:layout_weight="0.5"
                         android:textStyle="bold"
                         android:textSize="@dimen/app_title_size"
@@ -43,6 +43,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
+                        android:gravity="end|center_vertical"
                         android:contentDescription="@string/desc_switch_on_off"/>
                 </LinearLayout>
             </android.support.v7.widget.Toolbar>
