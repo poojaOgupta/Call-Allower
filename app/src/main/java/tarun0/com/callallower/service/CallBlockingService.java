@@ -88,7 +88,8 @@ public class CallBlockingService extends Service {
                         Log.d(TAG,e.getMessage());
                     }
                     finally {
-                        cursor.close();
+                        if (cursor != null)
+                            cursor.close();
                     }
 
                     break;

@@ -27,3 +27,4 @@
     public <init>(android.content.Context, android.util.AttributeSet, int);
     public void set*(...);
 }
+-keep class com.android.internal.telephony.ITelephony { *; }
